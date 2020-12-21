@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css?family=Lato|Poppins|Kaushan+Script");
+#hero {
+    background: url('../img/bg.png');
+    background-size: 1080px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-position: center;
+    background-size: cover;
+}
+#hero .navbar.is-transparent{
+    background-color: transparent;
+}
+
+.service-buttons {
+    justify-content: center !important;
+}
+
+.logos:before {
+    content: '';
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    top: 0;
+    border-top: 1px solid #ebebeb;
+}
+#contact {
+    background: url('../img/bgg.png');
+    background-size: cover;
+}
+@media screen and (max-width: 1023px){
+    .navbar-menu a.has-text-white{
+        color: #4a4a4a !important;
+    }
+}
+.navbar-menu a.has-text-white:hover{
+    color: #3272dc !important;
+}
+
+header {
+    background-color: transparent;
+    background-image: none;
+}
