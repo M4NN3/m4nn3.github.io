@@ -1,0 +1,72 @@
+[
+	{
+    "title": "AstroTV",
+    "description": "Aplicación android dual (smartphones y AndroidTv) para la reproducción de contenido de streaming desarrollada para la empresa ImagineSolutions de 🇨🇴",
+    "icon": "⚡",
+    "featured": true,
+    "tags": ["Kotlin", "REST API", "Exoplayer/Media3", "MVVM", "Dagger-Hilt", "Room/SQLite", "Navigation Component", "Retrofit", "Moshi"],
+    "demo": null,
+    "github": "#",
+    "docs": "#",
+    "links": [],
+    "images": [
+      { "src": "imgs/proyecto01/1.jpg", "caption": "Mobile UI / Player Screen" },
+      { "src": "imgs/proyecto01/2.jpg", "caption": "Mobile UI / TvShow Screen" },
+      { "src": "imgs/proyecto01/3.jpg", "caption": "Mobile UI / Home Screen" },
+      { "src": "imgs/proyecto01/4.jpg", "caption": "AndroidTV UI / Multiple Screens " }
+    ]
+  },
+  {
+    "title": "Runfact",
+    "description": "Sistema API para facturación electrónica. Crea, firma, autoriza y entrega por email las facturas electrónicas procesadas con el SRI. Incluye una desktop para configuración de parámetros.",
+    "icon": "⚕️",
+    "tags": ["Java", "JavaFX", "Spring Boot", "Jackson/Gson", "Mailjet", "Jasper Reports"],
+    "demo": "",
+    "github": "https://github.com/M4NN3/runfact-app",
+    "docs": null,
+    "links": [],
+    "images": [
+      { "src": "imgs/proyecto02/1.jpg", "caption": "Welcome Screen" },
+      { "src": "imgs/proyecto02/2.jpg", "caption": "Lock Screen" },
+      { "src": "imgs/proyecto02/3.jpg", "caption": "Config Screen" }
+    ]
+  },
+  {
+    "title": "Hoafon",
+    "description": "Aplicación android compatible con AndroidTV para la reproducción de contenido de tipo streaming desarrollada para la empresa Hoafon de 🇨🇱",
+    "icon": "🚀",
+    "featured": true,
+    "tags": ["Kotlin", "Exoplayer/Media3", "MVVM", "Room/SQLite", "OKHttp", "GSON"],
+    "demo": "https://play.google.com/store/apps/details?id=com.mnn.tele",
+    "github": null,
+    "docs": null,
+
+    "images": [
+      { "src": "imgs/proyecto03/1.jpg", "caption": "Home Screen" },
+	  { "src": "imgs/proyecto03/2.jpg", "caption": "Home Screen" },
+	  { "src": "imgs/proyecto03/3.jpg", "caption": "Main Screen" },
+	  { "src": "imgs/proyecto03/4.jpg", "caption": "Main Screen" },
+	  { "src": "imgs/proyecto03/5.jpg", "caption": "Search Screen" },
+	  { "src": "imgs/proyecto03/6.jpg", "caption": "Player Screen" },
+	  { "src": "imgs/proyecto03/7.jpg", "caption": "Full Screen" },
+	  { "src": "imgs/proyecto03/8.jpg", "caption": "Full Screen" }
+    ]
+  },
+  {
+    "title": "RedoTeach & RedoLearn",
+    "description": "Con redo mejoras la enseñanza y aprendizaje de fundamentos de programación. 2 Apps: versión docente y versión estudiante. Crea clases y ejercicios virtuales para tus estudiantes",
+    "icon": " 🏫 ",
+    "tags": ["Java", "Firebase Auth", "Firebase Storage", "Firestore", "Gamification"],
+    "demo": "",
+    "github": "https://github.com/M4NN3/redo",
+    "docs": "https://repositorio.uteq.edu.ec/handle/43000/6100",
+    "links": [],
+    "images": [
+      { "src": "imgs/proyecto04/1.png", "caption": "Results Screen" },
+      { "src": "imgs/proyecto04/2.png", "caption": "Puzzle Screen" },
+      { "src": "imgs/proyecto04/3.png", "caption": "Program Screen" },
+      { "src": "imgs/proyecto04/4.png", "caption": "Home Screen" },
+      { "src": "imgs/proyecto04/5.png", "caption": "Quiz Screen" }
+    ]
+  }
+]

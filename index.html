@@ -1,435 +1,1273 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NitoApps</title>
-    <link rel="icon" type="image/png" href="img/fav_16.png" sizes="15x10">
-    <link rel="icon" type="image/png" href="img/fav_32.png" sizes="31x20">
-    <link rel="icon" type="image/png" href="img/fav_64.png" sizes="64x40">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>M4NN3 Portfolio — Ingeniero en Sistemas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050810;
+      --surface: #0c1020;
+      --surface2: #111827;
+      --border: #1e2a3d;
+      --accent: #00e5ff;
+      --accent2: #7c3aed;
+      --accent3: #10b981;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --tag-bg: #0f172a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Mono', monospace;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── GRID BACKGROUND ─────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── GLOW ORBS ───────────────────────── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 { width: 500px; height: 500px; background: rgba(0,229,255,0.06); top: -100px; left: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: rgba(124,58,237,0.08); bottom: 10%; right: -80px; }
+    .orb-3 { width: 300px; height: 300px; background: rgba(16,185,129,0.05); top: 50%; left: 30%; }
+
+    /* ─── LAYOUT ──────────────────────────── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* ─── NAV ─────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(5,8,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 24px;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ─── HERO ────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 60px;
+    }
+    .hero-inner {
+      padding: 80px 0 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 32px; height: 1px;
+      background: var(--accent);
+    }
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .hero-name .line2 { color: var(--accent); }
+    .hero-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+    .hero-cta {
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 12px 28px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,229,255,0.25);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 12px 28px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* hero terminal */
+    .hero-terminal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,229,255,0.05);
+    }
+    .terminal-bar {
+      background: var(--surface2);
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+    .terminal-title { flex: 1; text-align: center; font-size: 0.68rem; color: var(--muted); }
+    .terminal-body { padding: 20px; font-size: 0.78rem; line-height: 2; }
+    .t-line { display: flex; gap: 8px; }
+    .t-prompt { color: var(--accent3); }
+    .t-cmd { color: var(--text); }
+    .t-comment { color: var(--muted); }
+    .t-string { color: #f9a8d4; }
+    .t-number { color: #fb923c; }
+    .t-key { color: var(--accent); }
+    .t-indent { padding-left: 20px; }
+    .t-cursor {
+      display: inline-block;
+      width: 8px; height: 1em;
+      background: var(--accent);
+      animation: blink 1s step-end infinite;
+      vertical-align: text-bottom;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ─── STATS ───────────────────────────── */
+    #stats {
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+    .stat {
+      background: var(--bg);
+      padding: 28px 32px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+
+    /* ─── SECTION HEADER ──────────────────── */
+    .section-header {
+      margin-bottom: 56px;
+      display: flex; align-items: flex-end; gap: 24px;
+    }
+    .section-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 4px 10px;
+      border: 1px solid rgba(0,229,255,0.3);
+      white-space: nowrap;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      flex: 1;
+    }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--border), transparent);
+    }
+
+    /* ─── PROJECTS ────────────────────────── */
+    #projects { padding: 100px 0; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+      cursor: pointer;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .project-card:hover { border-color: rgba(0,229,255,0.3); transform: translateY(-3px); }
+    .project-card:hover::before { transform: scaleX(1); }
+
+    .project-card.featured {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .project-card.featured::before { background: linear-gradient(90deg, var(--accent), var(--accent3)); }
+
+    .project-number {
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      margin-bottom: 16px;
+    }
+    .project-icon {
+      width: 42px; height: 42px;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+    }
+    .project-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .project-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .project-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-bottom: 20px;
+    }
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.62rem;
+      padding: 3px 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .tag:hover { color: var(--accent); border-color: rgba(0,229,255,0.4); }
+    .project-links { display: flex; gap: 12px; }
+    .project-link {
+      font-size: 0.68rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      display: flex; align-items: center; gap: 5px;
+      transition: opacity 0.2s;
+    }
+    .project-link:hover { opacity: 0.7; }
+    .project-link svg { width: 12px; height: 12px; }
+
+    /* featured visual side */
+    .project-visual {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 180px;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,229,255,0.05), rgba(124,58,237,0.08));
+    }
+
+    /* ─── PROJECTS LOADING STATE ─────────── */
+    .projects-loading {
+      grid-column: 1 / -1;
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px;
+      padding: 80px 0;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+    }
+    .projects-loading .spinner-ring { width: 20px; height: 20px; }
+
+    /* ─── GALLERY BUTTON ─────────────────── */
+    .btn-gallery {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      margin-top: 14px;
+    }
+    .btn-gallery:hover { border-color: rgba(0,229,255,0.5); color: var(--accent); background: rgba(0,229,255,0.04); }
+    .btn-gallery svg { width: 11px; height: 11px; flex-shrink: 0; }
+    .btn-gallery .gallery-count {
+      background: rgba(0,229,255,0.12);
+      color: var(--accent);
+      border-radius: 2px;
+      padding: 1px 5px;
+      font-size: 0.58rem;
+    }
+
+    /* ─── GALLERY MODAL ──────────────────── */
+    .gallery-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3,5,12,0.96);
+      backdrop-filter: blur(16px);
+      z-index: 300;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .gallery-overlay.open { opacity: 1; pointer-events: all; }
+
+    .gallery-modal {
+      width: 100%; max-width: 900px;
+      padding: 0 24px;
+      position: relative;
+      transform: scale(0.96);
+      transition: transform 0.25s;
+    }
+    .gallery-overlay.open .gallery-modal { transform: scale(1); }
+
+    .gallery-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .gallery-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .gallery-title span { color: var(--accent); }
+    .gallery-meta { font-size: 0.65rem; color: var(--muted); }
+
+    .gallery-close {
+      background: none; border: 1px solid var(--border);
+      color: var(--muted); font-size: 1rem;
+      width: 32px; height: 32px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .gallery-close:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* main image */
+    .gallery-stage {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gallery-stage img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      transition: opacity 0.2s;
+    }
+    .gallery-stage .gallery-placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      color: var(--muted); font-size: 0.75rem;
+    }
+    .gallery-stage .gallery-placeholder svg { width: 40px; height: 40px; opacity: 0.3; }
+
+    /* nav arrows */
+    .gallery-arrow {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(5,8,16,0.7);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      z-index: 2;
+      font-size: 1rem;
+    }
+    .gallery-arrow:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,229,255,0.08); }
+    .gallery-arrow.prev { left: 12px; }
+    .gallery-arrow.next { right: 12px; }
+    .gallery-arrow:disabled { opacity: 0.2; cursor: default; pointer-events: none; }
+
+    /* thumbnails strip */
+    .gallery-thumbs {
+      display: flex; gap: 8px;
+      margin-top: 12px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .gallery-thumb {
+      flex-shrink: 0;
+      width: 72px; height: 48px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.2s, border-color 0.2s;
+    }
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-thumb.active { opacity: 1; border-color: var(--accent); }
+    .gallery-thumb:hover { opacity: 0.85; }
+
+    /* loading spinner */
+    .gallery-spinner {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--surface);
+      z-index: 3;
+    }
+    .spinner-ring {
+      width: 36px; height: 36px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .gallery-error {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; font-size: 0.72rem; color: var(--muted);
+      background: var(--surface);
+    }
+    .gallery-error-icon { font-size: 2rem; opacity: 0.4; }
+
+    /* ─── SKILLS ──────────────────────────── */
+    #skills { padding: 100px 0; background: var(--surface); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+    .skill-group {
+      background: var(--surface);
+      padding: 32px;
+    }
+    .skill-group-title {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .skill-group-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .skill-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .skill-item:last-child { border-bottom: none; }
+    .skill-name { font-size: 0.78rem; color: var(--text); }
+    .skill-bar-wrap { width: 80px; height: 3px; background: var(--border); }
+    .skill-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+
+    /* ─── EXPERIENCE ──────────────────────── */
+    #experience { padding: 100px 0; }
+
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .timeline-item {
+      padding: 0 0 48px 40px;
+      position: relative;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -5px; top: 4px;
+      width: 11px; height: 11px;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+    .timeline-date { font-size: 0.65rem; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+    .timeline-role {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .timeline-company { font-size: 0.75rem; color: var(--muted); margin-bottom: 12px; }
+    .timeline-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.7; max-width: 560px; }
+
+    /* ─── CONTACT ─────────────────────────── */
+    #contact {
+      padding: 100px 0;
+      background: var(--surface);
+      position: relative;
+    }
+    #contact::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 1px; height: 60px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .contact-intro {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; }
+    .contact-link {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.78rem;
+      color: var(--text);
+      text-decoration: none;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-link-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .form-input, .form-textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+    .form-textarea { resize: vertical; min-height: 110px; }
+
+    /* ─── FOOTER ──────────────────────────── */
+    footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-copy { font-size: 0.65rem; color: var(--muted); }
+    .footer-made { font-size: 0.65rem; color: var(--muted); }
+    .footer-made span { color: var(--accent); }
+
+    /* ─── MODAL ───────────────────────────── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5,8,16,0.92);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px;
+      width: 100%; max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.25s;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: none; border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 1rem;
+      width: 30px; height: 30px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .modal-close:hover { border-color: var(--accent); color: var(--accent); }
+    .modal-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    .modal-form { display: flex; flex-direction: column; gap: 14px; }
+
+    /* ─── RESPONSIVE ──────────────────────── */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .skills-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+
+    /* ─── ANIMATIONS ──────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .fade-up:nth-child(3) { transition-delay: 0.2s; }
+    .fade-up:nth-child(4) { transition-delay: 0.3s; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+  </style>
 </head>
-
 <body>
-    <section class="section" id="hero">
-        <div class="container">
-            <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
-                <div class="navbar-brand">
-                    <a class="navbar-item" href="#">
-                        <img src="img/nitolog.png" width="46" height="29">
-                    </a>
 
-                    <a role="button" class="navbar-burger burger has-text-white" aria-label="menu" aria-expanded="false"
-                        data-target="navbarBasicExample">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                    </a>
-                </div>
+  <!-- ORBS -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 
-                <div id="navbarBasicExample" class="navbar-menu">
-                    <div class="navbar-start">
-                        <a class="navbar-item has-text-white">
-                            Inicio
-                        </a>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-logo" href="#hero">&lt;<span>dev</span> /&gt;</a>
+      <div class="nav-links">
+        <a href="#projects">Proyectos</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experiencia</a>
+        <a href="#contact">Contacto</a>
+      </div>
+    </div>
+  </nav>
 
-                        <a class="navbar-item has-text-white">
-                            Productos
-                        </a>
-
-                        <div class="navbar-item has-dropdown is-hoverable">
-                            <a class="navbar-link has-text-white">
-                                Más
-                            </a>
-
-                            <div class="navbar-dropdown">
-                                <a class="navbar-item">
-                                    Acerca de nosotros
-                                </a>
-                                <a class="navbar-item">
-                                    Contacto
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="navbar-end">
-                        <div class="navbar-item">
-                            <div class="buttons">
-                                <a class="button is-inverted" href="#portfolio">
-                                    <span class="icon">
-                                        <i class="fas fa-briefcase"></i>
-                                    </span>
-                                    <strong>Portfolio</strong>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <div class="columns pt-6">
-                <div class="column mt-5">
-                    <span class="icon has-text-warning">
-                        <i class="fab fa-android"></i>
-                    </span>
-                    <h1 class="is-size-2 has-text-white">
-                        NitoApps <br />
-                    </h1>
-                    <p class="has-text-white">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Mollitia, neque hic ducimus ullam enim aspernatur minima
-                        quasi ea aut natus in nihil autem tempora assumenda odit
-                        dolores dignissimos excepturi. Consequatur.
-                    </p>
-                    <button class="button is-warning mt-4">Learn more</button>
-                </div>
-                <div class="column mt-6">
-                    <img src="img/hero-image.png" alt="Hero Image">
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="section" id="services">
-        <div class="modal ">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-              <!-- Any other Bulma elements you want -->
-            </div>
-            <button class="modal-close is-large" aria-label="close"></button>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-eyebrow">Disponible para proyectos freelance</div>
+          <h1 class="hero-name">
+            Manne Rodríguez<br>
+            <span class="line2">Ingeniero</span><br>
+            en Sistemas
+          </h1>
+          <p class="hero-desc">
+            5 años construyendo productos digitales que escalan.
+            Especializado en desarrollo android, saas
+            y soluciones de alto rendimiento para clientes globales.
+          </p>
+          <div class="hero-cta">
+            <a href="#projects" class="btn-primary">Ver proyectos</a>
+            <a href="#contact" class="btn-ghost">Contactar</a>
           </div>
-        <div class="container is fluid">
-            <a href="#portfolio" id="portfolio" class="title is-3 is-spaced anchor">
-                <span class="anchor-name">Portfolio</span>
-              </a>
-              <section class="section">
-                  <div class="slider">
-                      <div id="carousel-demo" class="carousel">
-					<div class='carousel-item'>
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="img/RTlogo.png" width="100" height="100"/>
-                            </div>
-                            <div class="card-content">
-                                <article class="message is-info">
-                                    <div class="message-body">
-                                        <strong>Redo Teach</strong>
-                                    </div>
-                                  </article>
-                                <div class="item-description">
-                                    <article class="message is-dark">
-                                        <div class="message-body">
-                                        Refuerza las clases de programación (versión para el docente)
-                                        </div>
-                                      </article>
-                                    <div class="buttons">
-                                        <a class="button" ><span class="icon"><i class="fab fa-android"></i></span></a>
-                                        <a class="button" ><span class="icon"><i class="fab fa-google-play"></i></span></a>
-                                        <a class="button" href="https://github.com/M4NN3/pinv2" target="_blank"><span class="icon"><i class="fab fa-github"></i></span></a>
-                                        <a class="button" href="https://bit.ly/3hbGUEf" target="_blank" ><span class="icon"><i class="fas fa-download"></i></span></a>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class='carousel-item'>
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="img/RLlogo.png" width="100" height="100"/>
-                            </div>
-                            <div class="card-content">
-                                <article class="message is-info">
-                                    <div class="message-body">
-                                        <strong>Redo Learn</strong>
-                                    </div>
-                                  </article>
-                                <div class="item-description">
-                                    <article class="message is-dark">
-                                        <div class="message-body">
-                                        Refuerza las clases de programación (versión para el estudiante )
-                                        </div>
-                                      </article>
-                                    <div class="buttons">
-                                        <a class="button" ><span class="icon"><i class="fab fa-android"></i></span></a>
-                                        <a class="button" ><span class="icon"><i class="fab fa-google-play"></i></span></a>
-                                        <a class="button" href="https://github.com/M4NN3/pinv2" target="_blank"><span class="icon"><i class="fab fa-github"></i></span></a>
-                                        <a class="button" href="https://bit.ly/3h6arzl" target="_blank" ><span class="icon"><i class="fas fa-download"></i></span></a>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class='carousel-item'>
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="img/viblock.png" width="100" height="100"/>
-                            </div>
-                            <div class="card-content">
-                                <article class="message is-danger">
-                                    <div class="message-body">
-                                        <strong>ViBlock PDF</strong>
-                                    </div>
-                                  </article>
-                                <div class="item-description">
-                                    <article class="message is-dark">
-                                        <div class="message-body">
-                                        Agrega propiedades de seguridad a un archivo PDF
-                                        </div>
-                                      </article>
-                                    <div class="buttons">
-                                        <a class="button" ><span class="icon"><i class="fa fa-desktop"></i></span></a>
-                                        <a class="button" href="https://github.com/M4NN3/viblockpdf" target="_blank"><span class="icon"><i class="fab fa-github"></i></span></a>
-                                        <a class="button" href="" target="_blank" ><span class="icon"><i class="fas fa-download"></i></span></a>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class='carousel-item'>
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="img/wpapex.png" width="100" height="100"/>
-                            </div>
-                            <div class="card-content">
-                                <article class="message is-warning">
-                                    <div class="message-body">
-                                        <strong>Wallpapex</strong>
-                                    </div>
-                                  </article>
-                                <div class="item-description">
-                                    <article class="message is-dark">
-                                        <div class="message-body">
-                                        Descarga fondos de pantalla del juego Apex Legends
-                                        </div>
-                                      </article>
-                                    <div class="buttons">
-                                        <a class="button" ><span class="icon"><i class="fab fa-android"></i></span></a>
-                                        <a class="button" ><span class="icon"><i class="fab fa-google-play"></i></span></a>
-                                        <a class="button" href="https://github.com/M4NN3/wallpapex" target="_blank"><span class="icon"><i class="fab fa-github"></i></span></a>
-                                        <a class="button" href="" target="_blank" ><span class="icon"><i class="fas fa-download"></i></span></a>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class='carousel-item'>
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="img/alarm.png" width="100" height="100"/>
-                            </div>
-                            <div class="card-content">
-                                <article class="message is-success">
-                                    <div class="message-body">
-                                        <strong>Alarma</strong>
-                                    </div>
-                                  </article>
-                                <div class="item-description">
-                                    <article class="message is-dark">
-                                        <div class="message-body">
-                                        Establece alarmas o recordatorios en una interfaz sencilla
-                                        </div>
-                                      </article>
-                                    <div class="buttons">
-                                        <a class="button" ><span class="icon"><i class="fab fa-android"></i></span></a>
-                                        <a class="button" href="https://github.com/M4NN3/alarm-android" target="_blank"><span class="icon"><i class="fab fa-github"></i></span></a>
-                                        <a class="button" href="https://bit.ly/34x3wKi" target="_blank" ><span class="icon"><i class="fas fa-download"></i></span></a>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class='carousel-item'>
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="img/cpred.png" width="100" height="100"/>
-                            </div>
-                            <div class="card-content">
-                                <article class="message is-success">
-                                    <div class="message-body">
-                                        <strong>CrimePredict</strong>
-                                    </div>
-                                  </article>
-                                <div class="item-description">
-                                    <article class="message is-dark">
-                                        <div class="message-body">
-                                        Aplicación web para la predicción de eventos peligrosos
-                                        </div>
-                                      </article>
-                                    <div class="buttons">
-                                        <a class="button" ><span class="icon"><i class="fab fa-js"></i></span></a>
-                                        <a class="button" href="https://github.com/M4NN3/crimepredict" target="_blank"><span class="icon"><i class="fab fa-github"></i></span></a>
-                                        <a class="button" href="https://m4nn3.github.io/crimepredict" target="_blank" ><span class="icon"><i class="fab fa-chrome"></i></span></a>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                      
-				</div>
-                  </div>
-              </section>
-            <!-- Start Carousel -->
-				
-				<!-- End Carousel -->
-            <div class="has-text-centered">
-                <h2 class="title is'2">Impulsado por</h2>
-                <h6 class="subtitle is-6 hast-text-grey">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </h6>
-            </div>
-         
-            <div class="field is-grouped mt-6 is-flex service-button">
-                <p class="control">
-                    <button class="button is-warning">
-                        Free Consultation
-                    </button>
-                </p>
-                <p class="control">
-                    <button class="button is-info">
-                        Request Pricing
-                    </button>
-                </p>
-            </div>
-            <div class="columns mt-6 pt-5 logos is-relative">
-                <div class="column">
-                    <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png"
-                        alt="Client logo 1">
-                </div>
-                <div class="column">
-                    <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.png"
-                        alt="Client logo 2">
-                </div>
-                <div class="column">
-                    <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png"
-                        alt="Client logo 3">
-                </div>
-                <div class="column">
-                    <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.png"
-                        alt="Client logo 4">
-                </div>
-            </div>
         </div>
-    </section>
-    <section class="section" id="contact">
-        <div class="container">
-            <div class="columns">
-                <div class="column">
-                    <div class="card">
-                        <header class="card-header has-background-warning">
-                            <p class="card-header-title">
-                                Contáctanos
-                            </p>
-                        </header>
-                        <div class="card-content">
-                            <form id="my-form" action="https://formspree.io/f/myybzozg" method="POST">
-                                <div class="field">
-                                    <label for="" class="label">Nombre</label>
-                                    <p class="control has-icons-left">
-                                        <input type="text" class="input" placeholder="Ingrese su nombre" required>
-                                        <span class="icon is-small is-left">
-                                            <i class="fas fa-user"></i>
-                                        </span>
-                                    </p>
-                                </div>
-                                <div class="field">
-                                    <label for="" class="label">Email</label>
-                                    <p class="control has-icons-left">
-                                        <input type="email" class="input" name="email" placeholder="Correo electrónico"
-                                            required>
-                                        <span class="icon is-small is-left">
-                                            <i class="fas fa-envelope"></i>
-                                        </span>
-                                    </p>
-                                </div>
-                                <div class="field">
-                                    <label for="" class="label">Mensaje</label>
-                                    <p class="control">
-                                        <textarea class="textarea" name="message" id="" placeholder="Mensaje"
-                                            required> </textarea>
-                                    </p>
-                                </div>
-                                <div class="field">
-                                    <p class="control">
-                                        <button class="button is-warning" id="my-form-button">
-                                            Enviar
-                                        </button>
-                                    </p>
-                                </div>
-                                <article class="message is-success" id="my-form-status">
-                                    <div class="message-body" id="my-form-staus-content">
-                                      
-                                    </div>
-                                  </article>
-                                  
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="column has-text-white pt-6 pl-6">
-                    <span class="icon is-size-1 pb-6 my-3 has-text-grey-lighter">
-                        <i class="fas fa-quote-left"></i>
-                    </span>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Itaque nisi iure error in possimus ea, deserunt rem eius modi fugiat neque vitae voluptas!
-                        A temporibus sed animi reprehenderit minus minima.
-                    </p>
-                    <p class="has-text-weight-bold pt-3 is-size-4">Manne Rodríguez</p>
-                    <span class="icon is-size-1 pt-6 pr-6 my-3 has-text-grey-lighter is-pulled-right">
-                        <i class="fas fa-quote-right"></i>
-                    </span>
-                </div>
+        <div>
+          <div class="hero-terminal">
+            <div class="terminal-bar">
+              <div class="dot dot-r"></div>
+              <div class="dot dot-y"></div>
+              <div class="dot dot-g"></div>
+              <span class="terminal-title">developer.json</span>
             </div>
-        </div>
-    </section>
-    <footer class="footer has-background-link py-4 has-text-white has-text-centered">
-        <div class="container">
-            <div class="columns">
-                <div class="column">
-                    <span class="icon">
-                        <i class="far fa-envelope"></i>
-                    </span>
-                    <a class="has-text-white" href="mailto:mnrch.18@gmail.com?Subject=Consulta%20a%20usted">
-                        Email de contacto</a>
-                </div>
-                <div class="column">
-                    <span class="icon">
-                        <i class="fab fa-whatsapp"></i>
-                    </span>
-                    <a class="has-text-white" href="https://wa.me/593984514811?text=Me%20gustaría%20saber%20más%20de%20NitoApps" target="_blank">
-                        WhatsApp
-                    </a>
-                </div>
-                <div class="column">
-                    <span class="icon">
-                        <i class="fab fa-github"></i>
-                    </span>
-                    <a class="has-text-white" href="https://github.com/m4nn3/" target="_blank">
-                        Github
-                        </a>
-                </div>
+            <div class="terminal-body">
+              <div class="t-line"><span class="t-cmd">{</span></div>
+              <div class="t-line t-indent"><span class="t-key">"name"</span><span class="t-cmd">: </span><span class="t-string">"Manne Rodríguez"</span><span class="t-cmd">,</span></div>
+              <div class="t-line t-indent"><span class="t-key">"role"</span><span class="t-cmd">: </span><span class="t-string">"Software Engineer"</span><span class="t-cmd">,</span></div>
+              <div class="t-line t-indent"><span class="t-key">"experience"</span><span class="t-cmd">: </span><span class="t-number">5</span><span class="t-cmd">,</span></div>
+              <div class="t-line t-indent"><span class="t-key">"focus"</span><span class="t-cmd">: [</span></div>
+              <div class="t-line" style="padding-left:40px"><span class="t-string">"Android developer"</span><span class="t-cmd">,</span></div>
+              <div class="t-line" style="padding-left:40px"><span class="t-string">"Clean Architecture"</span><span class="t-cmd">,</span></div>
+              <div class="t-line" style="padding-left:40px"><span class="t-string">"API Design"</span></div>
+              <div class="t-line t-indent"><span class="t-cmd">],</span></div>
+              <div class="t-line t-indent"><span class="t-key">"available"</span><span class="t-cmd">: </span><span class="t-number">true</span></div>
+              <div class="t-line"><span class="t-cmd">}</span> <span class="t-cursor"></span></div>
             </div>
+          </div>
         </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
-		<script>
-		bulmaCarousel.attach('#carousel-demo', {
-			slidesToScroll: 1,
-            slidesToShow: 4,
-            loop: true,
-            autoplay: false,
-            autoplaySpeed: 2000
-		});
-		</script>
-    <script src="js/main.js"></script>
-</body>
+      </div>
+    </div>
+  </section>
 
+  <!-- STATS -->
+  <section id="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat fade-up">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Años de experiencia</div>
+        </div>
+        <div class="stat fade-up">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Proyectos entregados</div>
+        </div>
+        <div class="stat fade-up">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Clientes satisfechos</div>
+        </div>
+        <div class="stat fade-up">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Freelance independiente</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">// 01</div>
+        <h2 class="section-title">Proyectos</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="projects-grid" id="projects-grid">
+        <div class="projects-loading">
+          <div class="spinner-ring"></div>
+          Cargando proyectos...
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">// 02</div>
+        <h2 class="section-title">Tecnologías</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-group fade-up">
+          <div class="skill-group-title">Android Mobile</div>
+          <div class="skill-item"><span class="skill-name">Kotlin</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Java</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Clean Architecture</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">AndroidTV</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div></div>
+        </div>
+        <div class="skill-group fade-up">
+          <div class="skill-group-title">Backend</div>
+          <div class="skill-item"><span class="skill-name">SpringBoot</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:92%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Thymeleaf</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">REST</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:87%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">PostgreSQL / MySQL</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div></div>
+        </div>
+        <div class="skill-group fade-up">
+          <div class="skill-group-title">Infra & DevOps</div>
+          <div class="skill-item"><span class="skill-name">Oracle Cloud / GCP</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:78%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">Heroku / Apps Script</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:72%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">CI/CD Pipelines</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></div>
+          <div class="skill-item"><span class="skill-name">WSA</span><div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">// 03</div>
+        <h2 class="section-title">Trayectoria</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="timeline">
+	  <div class="timeline-item fade-up">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2024 — Presente</div>
+          <div class="timeline-role">Desarrollador freelance</div>
+          <div class="timeline-company">Freelance independiente · Remoto</div>
+          <div class="timeline-desc">
+            Desarrollo de aplicación móvil Android orientada al entretenimiento compatible con Smartphones y dispositivos AndroidTV.
+          </div>
+        </div>
+        <div class="timeline-item fade-up">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2022 — 2023</div>
+          <div class="timeline-role">Proyecto remoto</div>
+          <div class="timeline-company">Freelance independiente · Remoto</div>
+          <div class="timeline-desc">
+            Desarrollo de sistema para facturación electrónica.
+            Gestión del proyectos end-to-end, desde arquitectura hasta despliegue en producción.
+          </div>
+        </div>
+        <div class="timeline-item fade-up">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2021 — 2023</div>
+          <div class="timeline-role">Full-Stack Developer</div>
+          <div class="timeline-company">Proyectos Backend y Sitios Web</div>
+          <div class="timeline-desc">
+            Construcción de REST APIs y sitios web para clientes.
+            Enfoque en velocidad de entrega y calidad del código.
+          </div>
+        </div>
+        <div class="timeline-item fade-up">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2019 — 2020</div>
+          <div class="timeline-role">App and Frontend Developer</div>
+          <div class="timeline-company">Primeros proyectos freelance</div>
+          <div class="timeline-desc">
+            Desarrollo de interfaces de usuario modernas y responsivas.
+            Integración con APIs de terceros y optimización de rendimiento.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">// 04</div>
+        <h2 class="section-title">Contacto</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="contact-grid">
+        <div>
+          <p class="contact-intro">
+            ¿Tienes un proyecto en mente? Estoy disponible para proyectos
+            freelance, consultoría técnica y colaboraciones. Escríbeme y
+            hablemos de cómo puedo ayudarte.
+          </p>
+          <div class="contact-links">
+            <a href="mailto:mannerodriguez.18@gmail.com" class="contact-link">
+			  <span class="contact-link-icon">✉</span>
+			  mannerodriguez.18@gmail.com
+			</a>
+            <a href="https://github.com/M4NN3" target="_blank" class="contact-link">
+              <span class="contact-link-icon">⌥</span>
+              github.com/m4nn3
+            </a>
+            <a href="https://www.linkedin.com/in/manne-rodriguez-71a247228/" target="_blank" class="contact-link">
+              <span class="contact-link-icon">◈</span>
+              linkedin.com/in/manne-rodriguez-71a247228/
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="contact-form">
+            <div class="form-group">
+              <label class="form-label">Nombre</label>
+              <input type="text" class="form-input" placeholder="Tu nombre" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" placeholder="tu@email.com" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Mensaje</label>
+              <textarea class="form-textarea" placeholder="Cuéntame sobre tu proyecto..."></textarea>
+            </div>
+            <button class="btn-primary" style="align-self:flex-start">Enviar mensaje</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="container">
+    <footer>
+      <span class="footer-copy">© 2026 M4NN3. Todos los derechos reservados.</span>
+      <span class="footer-made">Construido con <span>pasión</span> y mucho café ☕</span>
+    </footer>
+  </div>
+
+  <!-- GALLERY MODAL -->
+  <div class="gallery-overlay" id="gallery-overlay">
+    <div class="gallery-modal">
+      <div class="gallery-header">
+        <div>
+          <div class="gallery-title">Galería — <span id="gallery-project-name"></span></div>
+          <div class="gallery-meta" id="gallery-meta"></div>
+        </div>
+        <button class="gallery-close" id="gallery-close">✕</button>
+      </div>
+      <div class="gallery-stage" id="gallery-stage">
+        <div class="gallery-spinner" id="gallery-spinner">
+          <div class="spinner-ring"></div>
+        </div>
+        <img id="gallery-img" src="" alt="" style="display:none" />
+        <div class="gallery-error" id="gallery-error" style="display:none">
+          <div class="gallery-error-icon">🖼</div>
+          <span>No se encontraron imágenes</span>
+          <span style="font-size:0.62rem;opacity:.6">Ruta: <span id="gallery-path-hint"></span></span>
+        </div>
+        <button class="gallery-arrow prev" id="gallery-prev">&#8592;</button>
+        <button class="gallery-arrow next" id="gallery-next">&#8594;</button>
+      </div>
+      <div class="gallery-thumbs" id="gallery-thumbs"></div>
+    </div>
+  </div>
+
+  <script>
+    // ═══════════════════════════════════════════════════════
+    //  FADE ON SCROLL
+    // ═══════════════════════════════════════════════════════
+    const scrollObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+
+    function observeFadeEls() {
+      document.querySelectorAll('.fade-up:not(.visible)').forEach(el => scrollObserver.observe(el));
+    }
+    observeFadeEls();
+
+    // ═══════════════════════════════════════════════════════
+    //  SVG ICONS (inline helpers)
+    // ═══════════════════════════════════════════════════════
+    const SVG = {
+      link: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`,
+      github: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>`,
+      gallery: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`,
+      doc: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`
+    };
+
+    // ═══════════════════════════════════════════════════════
+    //  BUILD PROJECT CARD FROM JSON DATA
+    // ═══════════════════════════════════════════════════════
+
+    // Registry: maps each gallery button element → { images, title }
+    const galleryRegistry = new Map();
+
+    function buildCard(project, index) {
+      const num    = String(index + 1).padStart(2, '0');
+      const isFeat = project.featured === true;
+
+      // Tags
+      const tagsHtml = (project.tags || [])
+        .map(t => `<span class="tag">${t}</span>`).join('');
+
+      // Links row
+      const linksHtml = buildLinks(project);
+
+      // Gallery button placeholder — data attached after DOM insertion
+      const hasGallery = Array.isArray(project.images) && project.images.length > 0;
+      const galleryBtnHtml = hasGallery
+        ? `<button class="btn-gallery" data-gallery-btn>
+             ${SVG.gallery} Ver galería <span class="gallery-count">${project.images.length}</span>
+           </button>`
+        : '';
+
+      // Card content
+      const content = `
+        <div class="project-number">// proyecto_${num}</div>
+        <div class="project-icon">${project.icon || '💡'}</div>
+        <h3 class="project-name">${project.title}</h3>
+        <p class="project-desc">${project.description}</p>
+        <div class="project-tags">${tagsHtml}</div>
+        <div class="project-links">${linksHtml}</div>
+        ${galleryBtnHtml}
+      `;
+
+      const card = document.createElement('div');
+      card.className = `project-card fade-up${isFeat ? ' featured' : ''}`;
+
+      if (isFeat) {
+        const firstImg = project.images && project.images[0];
+        const firstSrc = firstImg ? (typeof firstImg === 'string' ? firstImg : firstImg.src) : null;
+        const visual = firstSrc
+          ? `<img src="${firstSrc}" alt="${project.title}" style="width:100%;height:100%;object-fit:cover;border-radius:2px;" />`
+          : (project.icon || '🛸');
+        card.innerHTML = `<div>${content}</div><div class="project-visual">${visual}</div>`;
+      } else {
+        card.innerHTML = content;
+      }
+
+      // Attach gallery data via registry (safe — no inline JSON in HTML attributes)
+      if (hasGallery) {
+        const btn = card.querySelector('[data-gallery-btn]');
+        if (btn) {
+          galleryRegistry.set(btn, { images: project.images, title: project.title });
+          btn.addEventListener('click', () => {
+            const data = galleryRegistry.get(btn);
+            openGallery(data.images, data.title);
+          });
+        }
+      }
+
+      return card;
+    }
+
+    function buildLinks(project) {
+      const parts = [];
+      if (project.demo)
+        parts.push(`<a href="${project.demo}" target="_blank" rel="noopener" class="project-link">${SVG.link} Live demo</a>`);
+      if (project.github)
+        parts.push(`<a href="${project.github}" target="_blank" rel="noopener" class="project-link">${SVG.github} GitHub</a>`);
+      if (project.docs)
+        parts.push(`<a href="${project.docs}" target="_blank" rel="noopener" class="project-link">${SVG.doc} Docs</a>`);
+      // Extra custom links
+      (project.links || []).forEach(l =>
+        parts.push(`<a href="${l.url}" target="_blank" rel="noopener" class="project-link">${SVG.link} ${l.label}</a>`)
+      );
+      return parts.join('');
+    }
+
+    // ═══════════════════════════════════════════════════════
+    //  LOAD projects.json AND RENDER
+    // ═══════════════════════════════════════════════════════
+    async function loadProjects() {
+      const grid = document.getElementById('projects-grid');
+      try {
+        const res  = await fetch('projects.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const projects = Array.isArray(data) ? data : data.projects;
+
+        grid.innerHTML = '';
+        projects.forEach((p, i) => {
+          const card = buildCard(p, i);
+          grid.appendChild(card);
+        });
+        observeFadeEls();
+      } catch (err) {
+        grid.innerHTML = `
+          <div style="grid-column:1/-1;padding:60px 0;text-align:center;color:var(--muted);font-size:.78rem;line-height:2">
+            <div style="font-size:2rem;margin-bottom:12px">⚠</div>
+            No se pudo cargar <code style="color:var(--accent)">projects.json</code><br>
+            Asegúrate de que el archivo existe en la misma carpeta que <code style="color:var(--accent)">index.html</code><br>
+            <span style="font-size:.65rem;opacity:.5">${err.message}</span>
+          </div>`;
+      }
+    }
+
+    loadProjects();
+
+    // ═══════════════════════════════════════════════════════
+    //  GALLERY — now receives an images array directly
+    // ═══════════════════════════════════════════════════════
+    const galleryOverlay = document.getElementById('gallery-overlay');
+    const galleryClose   = document.getElementById('gallery-close');
+    const galleryImg     = document.getElementById('gallery-img');
+    const gallerySpinner = document.getElementById('gallery-spinner');
+    const galleryError   = document.getElementById('gallery-error');
+    const galleryThumbs  = document.getElementById('gallery-thumbs');
+    const galleryPrev    = document.getElementById('gallery-prev');
+    const galleryNext    = document.getElementById('gallery-next');
+
+    let galleryImages = [];
+    let galleryIndex  = 0;
+
+    function openGallery(images, projectName) {
+      galleryImages = images;
+      galleryIndex  = 0;
+
+      galleryImg.style.display  = 'none';
+      galleryError.style.display = 'none';
+      gallerySpinner.style.display = 'none';
+      galleryThumbs.innerHTML   = '';
+      galleryPrev.disabled      = true;
+      galleryNext.disabled      = true;
+
+      document.getElementById('gallery-project-name').textContent = projectName;
+      document.getElementById('gallery-path-hint').textContent    = '';
+      galleryOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      if (!images || images.length === 0) {
+        galleryError.style.display = 'flex';
+        return;
+      }
+
+      // Build thumbnails
+      images.forEach((img, idx) => {
+        const src   = typeof img === 'string' ? img : img.src;
+        const thumb = document.createElement('div');
+        thumb.className = 'gallery-thumb' + (idx === 0 ? ' active' : '');
+        thumb.innerHTML = `<img src="${src}" alt="thumb ${idx+1}" loading="lazy" />`;
+        thumb.addEventListener('click', () => showImage(idx));
+        galleryThumbs.appendChild(thumb);
+      });
+
+      showImage(0);
+    }
+
+    function showImage(index) {
+      galleryIndex = index;
+      const imgData = galleryImages[index];
+      const src     = typeof imgData === 'string' ? imgData : imgData.src;
+      const caption = typeof imgData === 'object' && imgData.caption ? imgData.caption : '';
+
+      galleryImg.style.display     = 'none';
+      gallerySpinner.style.display = 'flex';
+
+      const temp = new Image();
+      temp.onload = () => {
+        galleryImg.src = src;
+        galleryImg.alt = caption || `Imagen ${index + 1}`;
+        galleryImg.style.display     = 'block';
+        gallerySpinner.style.display = 'none';
+      };
+      temp.onerror = () => { gallerySpinner.style.display = 'none'; };
+      temp.src = src;
+
+      // Thumbs active state
+      document.querySelectorAll('.gallery-thumb').forEach((t, i) =>
+        t.classList.toggle('active', i === index)
+      );
+      const activeThumb = galleryThumbs.children[index];
+      if (activeThumb) activeThumb.scrollIntoView({ inline: 'nearest', behavior: 'smooth' });
+
+      galleryPrev.disabled = index === 0;
+      galleryNext.disabled = index === galleryImages.length - 1;
+
+      document.getElementById('gallery-meta').textContent =
+        caption ? `${index + 1} / ${galleryImages.length} — ${caption}`
+                : `${index + 1} / ${galleryImages.length}`;
+    }
+
+    galleryPrev.addEventListener('click', () => { if (galleryIndex > 0) showImage(galleryIndex - 1); });
+    galleryNext.addEventListener('click', () => { if (galleryIndex < galleryImages.length - 1) showImage(galleryIndex + 1); });
+    galleryClose.addEventListener('click', closeGallery);
+    galleryOverlay.addEventListener('click', e => { if (e.target === galleryOverlay) closeGallery(); });
+    document.addEventListener('keydown', e => {
+      if (!galleryOverlay.classList.contains('open')) return;
+      if (e.key === 'ArrowLeft')  galleryPrev.click();
+      if (e.key === 'ArrowRight') galleryNext.click();
+      if (e.key === 'Escape')     closeGallery();
+    });
+
+    function closeGallery() {
+      galleryOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+  </script>
+</body>
 </html>
